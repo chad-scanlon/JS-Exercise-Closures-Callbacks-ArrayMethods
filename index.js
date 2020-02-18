@@ -95,9 +95,11 @@ function processLastItem(stringList, callback) {
  * [2] Invoking `processSum` passing `[]` and `(num) => num + 1000`,
  * should return 1000.
  */
-function processProduct(numberList, callback) {
+function processSum(numberList, callback) {
     /* CODE HERE */
-    return callback(numberList.reduce())
+    return callback(numberList.reduce((total, numberList) => {
+        return total += numberList;
+    }, 0))
 }
 
 /**
@@ -143,10 +145,11 @@ function processProduct(num1, num2, callback) {
  * "lady gaga" and `['foo', 'bar']` and `(bool) => bool ? 'nice!' : 'sad'`,
  * should return "sad".
  */
-function processContains(item, list, bool) {
+function processContains(item, list, callback) {
     /* CODE HERE */
-
-    return bool(item in list)
+    let newArray = list.filter((element) => element === item);
+    let bool = (newArray[0]) === item;
+    return callback(bool);
 }
 
 /**
@@ -192,10 +195,10 @@ function processDuplicateFree( /* CODE HERE ONLY AFTER COMPLETING ALL OTHER TASK
  */
 function getFullNames(runners) {
     /* CODE HERE */
-    // module.exports last_name first_name
+
     const runnerNames = [];
-    runners.forEach(element => {
-        let lastFirst = `${element.last_name}, ${element.first_name}`;
+    runners.forEach(runner => {
+        let lastFirst = `${runner.last_name}, ${runner.first_name}`;
         runnerNames.push(lastFirst);
     });
     return runnerNames
@@ -216,10 +219,12 @@ function getFullNames(runners) {
  */
 function firstNamesAllCaps(runners) {
     /* CODE HERE */
-    let capNames = [];
-    firstNamesAllCaps.map(runners.first_name.toUppercase());
+    let capNames = runners.map(runners.first_name.toUppercase());
     return capNames
+
+    // return runners.map((runner) => `${runner.first_name.toUppercase()}`);
 }
+
 /**
  * ### Challenge `getRunnersByTShirtSize`
  * 
@@ -235,7 +240,12 @@ function firstNamesAllCaps(runners) {
  */
 function getRunnersByTShirtSize(runners, tShirtSize) {
     /* CODE HERE */
-    let shirtSize = runners.filter(runners.tShirtSize))
+    // let shirtSize = runners.filter(runners.tShirtSize);
+    // return shirtSize;
+    let shirtSize = runners.filter((shirts) => shirts.shirtSize ===
+        tShirtSize);
+
+    return shirtSize;
 }
 
 /**
@@ -248,8 +258,12 @@ function getRunnersByTShirtSize(runners, tShirtSize) {
  * @param runners array of runners like the one inside the /data/runners.js file.
  * @returns a number which is the sum of the donations by all runners.
  */
-function tallyUpDonations( /* CODE HERE */ ) {
+function tallyUpDonations(runners) {
     /* CODE HERE */
+    let totalDonations = [0];
+    runners.forEach(runner => totalDonations.push(runner.donation));
+    let tally = totalDonations.reduce(total, num) => total += num);
+return tally;
 }
 
 /////////////// CLOSURES ///////////////
@@ -270,9 +284,11 @@ function tallyUpDonations( /* CODE HERE */ ) {
  */
 function counterMaker() {
     // BROKEN CODE STARTS
-    const count = 0;
+    // const count = 0;
 
     function counter() {
+        let count = 0;
+
         ++count
     }
     // BROKEN CODE ENDS
@@ -299,28 +315,33 @@ function counterMaker() {
  * etc
  */
 function counterMakerWithLimit( /* CODE HERE */ ) {
-    /* CODE HERE */
-}
+    const add = (function() {
+        let counter = 0;
+        return function() {
+            counter += 1;
+            return counter
+        }
+    })();
 
-/////////////// END OF CHALLENGE ///////////////
-/////////////// END OF CHALLENGE ///////////////
-/////////////// END OF CHALLENGE ///////////////
+    /////////////// END OF CHALLENGE ///////////////
+    /////////////// END OF CHALLENGE ///////////////
+    /////////////// END OF CHALLENGE ///////////////
 
-if (typeof exports !== 'undefined') {
-    // IGNORE: Test/Env Detected
-    // For Node/Non-browser test env
-    module.exports = module.exports || {}
-    if (processFirstItem) { module.exports.processFirstItem = processFirstItem }
-    if (processLength) { module.exports.processLength = processLength }
-    if (processLastItem) { module.exports.processLastItem = processLastItem }
-    if (processSum) { module.exports.processSum = processSum }
-    if (processProduct) { module.exports.processProduct = processProduct }
-    if (processContains) { module.exports.processContains = processContains }
-    if (processDuplicateFree) { module.exports.processDuplicateFree = processDuplicateFree }
-    if (getFullNames) { module.exports.getFullNames = getFullNames }
-    if (firstNamesAllCaps) { module.exports.firstNamesAllCaps = firstNamesAllCaps }
-    if (getRunnersByTShirtSize) { module.exports.getRunnersByTShirtSize = getRunnersByTShirtSize }
-    if (tallyUpDonations) { module.exports.tallyUpDonations = tallyUpDonations }
-    if (counterMaker) { module.exports.counterMaker = counterMaker }
-    if (counterMakerWithLimit) { module.exports.counterMakerWithLimit = counterMakerWithLimit }
-}
+    if (typeof exports !== 'undefined') {
+        // IGNORE: Test/Env Detected
+        // For Node/Non-browser test env
+        module.exports = module.exports || {}
+        if (processFirstItem) { module.exports.processFirstItem = processFirstItem }
+        if (processLength) { module.exports.processLength = processLength }
+        if (processLastItem) { module.exports.processLastItem = processLastItem }
+        if (processSum) { module.exports.processSum = processSum }
+        if (processProduct) { module.exports.processProduct = processProduct }
+        if (processContains) { module.exports.processContains = processContains }
+        if (processDuplicateFree) { module.exports.processDuplicateFree = processDuplicateFree }
+        if (getFullNames) { module.exports.getFullNames = getFullNames }
+        if (firstNamesAllCaps) { module.exports.firstNamesAllCaps = firstNamesAllCaps }
+        if (getRunnersByTShirtSize) { module.exports.getRunnersByTShirtSize = getRunnersByTShirtSize }
+        if (tallyUpDonations) { module.exports.tallyUpDonations = tallyUpDonations }
+        if (counterMaker) { module.exports.counterMaker = counterMaker }
+        if (counterMakerWithLimit) { module.exports.counterMakerWithLimit = counterMakerWithLimit }
+    }
