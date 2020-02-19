@@ -314,14 +314,15 @@ function counterMaker() {
  * counter() // should return 0
  * etc
  */
-function counterMakerWithLimit( /* CODE HERE */ ) {
+function counterMakerWithLimit() {
     const add = (function() {
         let counter = 0;
         return function() {
             counter += 1;
             return counter
         }
-    })();
+        return counterMakerWithLimit()
+    });
 
     /////////////// END OF CHALLENGE ///////////////
     /////////////// END OF CHALLENGE ///////////////
@@ -345,3 +346,4 @@ function counterMakerWithLimit( /* CODE HERE */ ) {
         if (counterMaker) { module.exports.counterMaker = counterMaker }
         if (counterMakerWithLimit) { module.exports.counterMakerWithLimit = counterMakerWithLimit }
     }
+}
